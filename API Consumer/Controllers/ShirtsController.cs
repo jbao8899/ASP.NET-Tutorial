@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API_Consumer.Models.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API_Consumer.Controllers
 {
@@ -6,7 +7,7 @@ namespace API_Consumer.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(ShirtRepository.GetShirts());
         }
     }
 }

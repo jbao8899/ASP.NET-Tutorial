@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<Shirt>
+
+<h3>Shirts</h3>
+<br />
+<table class="table table-striped">
+    <tr>
+        <td>Brand</td>
+        <td>Color</td>
+        <td>Size</td>
+        <td>Is for Men</td>
+        <td>Price</td>
+    </tr>
+    <tbody>
+        @foreach (var shirt in Model)
+        {
+            <tr>
+                <td>@shirt.BrandName</td>
+                <td>@shirt.Color</td>
+                <td>@shirt.Size</td>
+                <td>@shirt.IsForMen</td>
+                <td>@(shirt.Price.HasValue ? shirt.Price.Value.ToString("c") : "")</td>
+            </tr>
+        }
+    </tbody>
+</table>
