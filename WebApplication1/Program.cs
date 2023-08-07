@@ -14,12 +14,6 @@ namespace WebApplication1
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShirtStoreManagement"));
             });
 
-            builder.Services.AddHttpClient("ShirtsApi", client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:7054");
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-            });
-
             // Add services to the container.
             builder.Services.AddAuthorization();
 

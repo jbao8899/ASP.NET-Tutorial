@@ -6,6 +6,12 @@ namespace API_Consumer
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddHttpClient("ShirtsApi", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7283/api/");
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
