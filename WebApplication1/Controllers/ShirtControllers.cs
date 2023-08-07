@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("/shirts")]
+        [Route("api/shirts")]
         public IActionResult GetShirts()
         {
             //return Ok(ShirtRepository.GetShirts());
@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("/shirts/{id}")]
+        [Route("api/shirts/{id}")]
         // [Shirt_ValidateShirtIdFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
         public IActionResult GetShirtById(int id)
@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [Route("/shirts")]
+        [Route("api/shirts")]
         //[Shirt_ValidateCreateShirtFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateCreateShirtFilterAttribute))]
         public IActionResult CreateShirt([FromBody] Shirt shirt)
@@ -113,7 +113,7 @@ namespace WebApplication1.Controllers
         //}
 
         [HttpPut]
-        [Route("/shirts/{id}")]
+        [Route("api/shirts/{id}")]
         // [Shirt_ValidateShirtIdFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
         [Shirt_ValidateUpdateShirtFilter]
@@ -159,7 +159,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete]
-        [Route("/shirts/{id}")]
+        [Route("api/shirts/{id}")]
         // [Shirt_ValidateShirtIdFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
         public IActionResult DeleteShirt(int id)
