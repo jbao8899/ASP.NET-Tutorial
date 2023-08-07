@@ -1,3 +1,5 @@
+using API_Consumer.Data;
+
 namespace API_Consumer
 {
     public class Program
@@ -14,6 +16,8 @@ namespace API_Consumer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddTransient<IWebApiExecutor, WebApiExecutor>();
 
             var app = builder.Build();
 
