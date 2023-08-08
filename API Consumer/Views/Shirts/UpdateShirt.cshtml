@@ -11,6 +11,7 @@
 
 <form method="post" asp-action="UpdateShirt"> <!--Method should be post, even though we are putting-->
     <div class="mb-3 row">
+        <input type="hidden" asp-for="Id" /> <!--Keeps id of shirt here, does not let user see or change it-->
         <div class="col-4">
             <label asp-for="BrandName" class="col-form-label">Brand:</label>
         </div>

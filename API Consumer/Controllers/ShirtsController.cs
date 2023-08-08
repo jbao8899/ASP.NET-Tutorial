@@ -46,8 +46,10 @@ namespace API_Consumer.Controllers
         //    return View();
         //}
 
-        //[HttpPut] // doesn't work if this is included???
+        //[HttpPut] // doesn't work if this is included
         //[HttpPost] // doesn't work either
+        // This is only for displaying stuff, so it should not be annotated
+        // with an HTTP request type
         public async Task<IActionResult> UpdateShirt(int shirtId)
         {
             Shirt? shirt = await _webApiExecutor.InvokeGet<Shirt>($"shirts/{shirtId}");
@@ -59,5 +61,26 @@ namespace API_Consumer.Controllers
             return NotFound();
         }
 
+        [HttpPost] // use post even though we are updating.
+        public async Task<IActionResult> UpdateShirt(Shirt shirt)
+        {
+            if (ModelState.IsValid)
+            {
+                await _webApiExecutor.InvokePut<Shirt>($"shirts/{shirt.Id}", shirt);
+                // go back to showing all shirts
+                return RedirectToAction(nameof(Index));
+
+            }
+            // Show the incorrect shirt
+            return View(shirt);
+        }
+
+        public async Task<IActionResult> DeleteShirt(int shirtId)
+        {
+            await _webApiExecutor.InvokeDelete<Shirt>($"shirts/{shirtId}");
+            return RedirectToAction(nameof(Index));
+
+        }
+        
     }
 }

@@ -16,6 +16,7 @@
         <td>Is for Men</td>
         <td>Price</td>
         <td></td>
+        <td></td>
     </tr>
     <tbody>
         @foreach (var shirt in Model)
@@ -27,6 +28,7 @@
                 <td>@shirt.IsForMen</td>
                 <td>@(shirt.Price.HasValue ? shirt.Price.Value.ToString("c") : "")</td>
                 <td><a class="btn btn-link" asp-controller="shirts" asp-action="updateshirt" asp-route-shirtId="@shirt.Id">Edit</a></td>
+                <td><a class="btn btn-link" asp-controller="shirts" asp-action="deleteshirt" asp-route-shirtId="@shirt.Id">Delete</a></td>
             </tr>
         }
     </tbody>
