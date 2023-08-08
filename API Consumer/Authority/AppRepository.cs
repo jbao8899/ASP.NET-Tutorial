@@ -14,15 +14,7 @@
             }
         };
 
-        public static bool Authenticate(string clientId, string secret)
-        {
-            return (from application in _applications
-                    where application.ClientId == clientId
-                    where application.Secret == secret
-                    select application).Any();
-        }
-
-        public static Application? GetApplication(string clientId)
+        public static Application? GetApplicationByClientId(string clientId)
         {
             return _applications.FirstOrDefault(a => a.ClientId == clientId);
         }

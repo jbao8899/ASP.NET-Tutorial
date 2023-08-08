@@ -21,12 +21,12 @@ namespace API_Consumer.Controllers
         [HttpPost("auth")]
         public IActionResult Authenticate([FromBody]AppCredential credential)
         {
-            if (AppRepository.Authenticate(credential.ClientId, credential.Secret))
+            if (Authenticator.Authenticate(credential.ClientId, credential.Secret))
             {
                 DateTime expires = DateTime.UtcNow.AddMinutes(10);
                 return Ok(new
                 {
-                    AccessToken = CreateToken(credential.ClientId, expires),
+                    AccessToken = Authenticator.CreateToken(credential.ClientId, expires, _configuration.GetValue<string>("SecretKey")),
                     Expires = expires
                 });
             }
@@ -40,34 +40,6 @@ namespace API_Consumer.Controllers
                 return new UnauthorizedObjectResult(problemDetails);
 
             }
-        }
-
-        private string CreateToken(string clientId, DateTime expiresAt)
-        {
-            // Key
-            byte[]? secretKey = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("SecretKey"));
-
-            Application? app = AppRepository.GetApplication(clientId);
-
-            // Claims
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim("AppName", app?.ApplicationName??string.Empty),
-                new Claim("Read", (app?.Scopes??string.Empty).Contains("read")?"true":"false"),
-                new Claim("Write", (app?.Scopes??string.Empty).Contains("write")?"true":"false")
-            };
-
-            JwtSecurityToken jwt = new JwtSecurityToken(
-                signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(secretKey),
-                    SecurityAlgorithms.HmacSha256Signature
-                ),
-                claims: claims,
-                expires: expiresAt,
-                notBefore: DateTime.UtcNow
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }
 }
