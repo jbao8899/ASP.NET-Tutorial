@@ -111,8 +111,17 @@ namespace API_Consumer.Controllers
 
         public async Task<IActionResult> DeleteShirt(int shirtId)
         {
-            await _webApiExecutor.InvokeDelete<Shirt>($"shirts/{shirtId}");
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _webApiExecutor.InvokeDelete<Shirt>($"shirts/{shirtId}");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (WebApiException ex)
+            {
+                HandleWebApiException(ex);
+                return View(nameof(Index),
+                    await _webApiExecutor.InvokeGet<List<Shirt>>("shirts")); // display shirts and error
+            }
 
         }
         

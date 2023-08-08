@@ -8,30 +8,36 @@
 
 <h3>Shirts</h3>
 <br />
-<table class="table table-striped">
-    <tr>
-        <td>Brand</td>
-        <td>Color</td>
-        <td>Size</td>
-        <td>Is for Men</td>
-        <td>Price</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tbody>
-        @foreach (var shirt in Model)
-        {
-            <tr>
-                <td>@shirt.BrandName</td>
-                <td>@shirt.Color</td>
-                <td>@shirt.Size</td>
-                <td>@shirt.IsForMen</td>
-                <td>@(shirt.Price.HasValue ? shirt.Price.Value.ToString("c") : "")</td>
-                <td><a class="btn btn-link" asp-controller="shirts" asp-action="updateshirt" asp-route-shirtId="@shirt.Id">Edit</a></td>
-                <td><a class="btn btn-link" asp-controller="shirts" asp-action="deleteshirt" asp-route-shirtId="@shirt.Id">Delete</a></td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="text-danger" asp-validation-summary="All"></div> <!--Show all errors-->
+@if (Model != null) // hide table if Model is null
+{
+    <table class="table table-striped">
+        <tr>
+            <td>Brand</td>
+            <td>Color</td>
+            <td>Size</td>
+            <td>Is for Men</td>
+            <td>Price</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tbody>
+            @foreach (var shirt in Model)
+            {
+                <tr>
+                    <td>@shirt.BrandName</td>
+                    <td>@shirt.Color</td>
+                    <td>@shirt.Size</td>
+                    <td>@shirt.IsForMen</td>
+                    <td>@(
+                        shirt.Price.HasValue ? shirt.Price.Value.ToString("c") : ""
+                        )</td>
+                    <td><a class="btn btn-link" asp-controller="shirts" asp-action="updateshirt" asp-route-shirtId="@shirt.Id">Edit</a></td>
+                    <td><a class="btn btn-link" asp-controller="shirts" asp-action="deleteshirt" asp-route-shirtId="@shirt.Id">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 <br />
 <a class="btn btn-primary" asp-controller="shirts" asp-action="createshirt">Create</a>
