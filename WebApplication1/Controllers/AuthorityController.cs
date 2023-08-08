@@ -1,4 +1,4 @@
-﻿using API_Consumer.Authority;
+﻿using WebApplication1.Authority;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;

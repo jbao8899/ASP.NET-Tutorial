@@ -1,4 +1,4 @@
-﻿namespace API_Consumer.Authority
+﻿namespace WebApplication1.Authority
 {
     public static class AppRepository
     {

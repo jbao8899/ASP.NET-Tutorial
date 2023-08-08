@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace API_Consumer.Authority
+namespace WebApplication1.Authority
 {
     public static class Authenticator
     {
