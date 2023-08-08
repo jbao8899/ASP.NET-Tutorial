@@ -30,13 +30,32 @@ namespace API_Consumer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = _webApiExecutor.InvokePost<Shirt>("shirts", shirt);
-                if (response is not null)
+                try
                 {
-                    // go back to showing all shirts
-                    return RedirectToAction(nameof(Index));
+                    var response = await _webApiExecutor.InvokePost<Shirt>("shirts", shirt);
+                    if (response is not null)
+                    {
+                        // go back to showing all shirts
+                        return RedirectToAction(nameof(Index));
+                    }
+                    
+                }
+                catch (WebApiException ex)
+                {
+                    HandleWebApiException(ex);
+                    //if (ex.ErrorResponse is not null &&
+                    //    ex.ErrorResponse.Errors is not null &&
+                    //    ex.ErrorResponse.Errors.Count > 0)
+                    //{
+                    //    foreach (var error in ex.ErrorResponse.Errors)
+                    //    {
+                    //        ModelState.AddModelError(error.Key, string.Join("; ", error.Value));
+                    //    }
+                    //    return View(shirt); // Probably not needed
+                    //}
                 }
             }
+
             // Show the incorrect shirt
             return View(shirt);
         }
@@ -52,10 +71,18 @@ namespace API_Consumer.Controllers
         // with an HTTP request type
         public async Task<IActionResult> UpdateShirt(int shirtId)
         {
-            Shirt? shirt = await _webApiExecutor.InvokeGet<Shirt>($"shirts/{shirtId}");
-            if (shirt is not null)
+            try
             {
-                return View(shirt);
+                Shirt? shirt = await _webApiExecutor.InvokeGet<Shirt>($"shirts/{shirtId}");
+                if (shirt is not null)
+                {
+                    return View(shirt);
+                }
+            }
+            catch (WebApiException ex)
+            {
+                HandleWebApiException(ex);
+                return View();
             }
 
             return NotFound();
@@ -66,9 +93,16 @@ namespace API_Consumer.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _webApiExecutor.InvokePut<Shirt>($"shirts/{shirt.Id}", shirt);
-                // go back to showing all shirts
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _webApiExecutor.InvokePut<Shirt>($"shirts/{shirt.Id}", shirt);
+                    // go back to showing all shirts
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (WebApiException ex)
+                {
+                    HandleWebApiException(ex);
+                }
 
             }
             // Show the incorrect shirt
@@ -82,5 +116,18 @@ namespace API_Consumer.Controllers
 
         }
         
+        private void HandleWebApiException(WebApiException ex)
+        {
+            if (ex.ErrorResponse is not null &&
+                ex.ErrorResponse.Errors is not null &&
+                ex.ErrorResponse.Errors.Count > 0)
+            {
+                foreach (var error in ex.ErrorResponse.Errors)
+                {
+                    ModelState.AddModelError(error.Key, string.Join("; ", error.Value));
+                }
+            }
+
+        }
     }
 }

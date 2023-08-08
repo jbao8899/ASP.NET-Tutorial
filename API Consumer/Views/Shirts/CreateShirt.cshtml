@@ -9,6 +9,7 @@
 <br />
 
 <form method="post" asp-action="CreateShirt">
+    <div class="text-danger" asp-validation-summary="All"></div> <!--Show all errors-->
     <div class="mb-3 row">
         <div class="col-4">
             <label asp-for="BrandName" class="col-form-label">Brand:</label>

@@ -10,6 +10,7 @@
 <br />
 
 <form method="post" asp-action="UpdateShirt"> <!--Method should be post, even though we are putting-->
+    <div class="text-danger" asp-validation-summary="All"></div> <!--Show all errors-->
     <div class="mb-3 row">
         <input type="hidden" asp-for="Id" /> <!--Keeps id of shirt here, does not let user see or change it-->
         <div class="col-4">
