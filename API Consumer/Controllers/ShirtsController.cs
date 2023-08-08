@@ -14,6 +14,7 @@ namespace API_Consumer.Controllers
             _webApiExecutor = webApiExecutor;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _webApiExecutor.InvokeGet<List<Shirt>>("shirts"));
@@ -27,7 +28,36 @@ namespace API_Consumer.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateShirt(Shirt shirt)
         {
+            if (ModelState.IsValid)
+            {
+                var response = _webApiExecutor.InvokePost<Shirt>("shirts", shirt);
+                if (response is not null)
+                {
+                    // go back to showing all shirts
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            // Show the incorrect shirt
             return View(shirt);
         }
+
+        //public IActionResult UpdateShirt()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPut] // doesn't work if this is included???
+        //[HttpPost] // doesn't work either
+        public async Task<IActionResult> UpdateShirt(int shirtId)
+        {
+            Shirt? shirt = await _webApiExecutor.InvokeGet<Shirt>($"shirts/{shirtId}");
+            if (shirt is not null)
+            {
+                return View(shirt);
+            }
+
+            return NotFound();
+        }
+
     }
 }

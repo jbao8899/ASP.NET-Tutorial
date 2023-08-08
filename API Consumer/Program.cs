@@ -10,7 +10,7 @@ namespace API_Consumer
 
             builder.Services.AddHttpClient("ShirtsApi", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7283/api/");
+                client.BaseAddress = new Uri("https://localhost:7283/api/"); // for the server
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 

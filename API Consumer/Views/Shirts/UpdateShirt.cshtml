@@ -3,12 +3,13 @@
 *@
 @{
 }
+
 @model Shirt
 
-<h3>Create Shirt</h3>
+<h3>Update Shirt</h3>
 <br />
 
-<form method="post" asp-action="CreateShirt">
+<form method="post" asp-action="UpdateShirt"> <!--Method should be post, even though we are putting-->
     <div class="mb-3 row">
         <div class="col-4">
             <label asp-for="BrandName" class="col-form-label">Brand:</label>
@@ -45,6 +46,6 @@
             <input type="number" asp-for="Price" class="form-control" step="0.01" min="0" />
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Submit" />
+        <input type="submit" class="btn btn-primary" value="Save" />
     </div>
 </form>
