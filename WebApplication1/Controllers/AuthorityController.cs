@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace API_Consumer.Controllers
+namespace WebApplication1.Controllers
 {
     [ApiController]
     public class AuthorityController : ControllerBase
