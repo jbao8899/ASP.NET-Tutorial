@@ -1,7 +1,7 @@
-﻿using API_Consumer.Models.Validations;
+﻿using Client.Models.Validations;
 using System.ComponentModel.DataAnnotations;
 
-namespace API_Consumer.Models
+namespace Client.Models
 {
     public class Shirt
     {

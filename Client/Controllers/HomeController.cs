@@ -1,8 +1,8 @@
-﻿using API_Consumer.Models;
+﻿using Client.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace API_Consumer.Controllers
+namespace Client.Controllers
 {
     public class HomeController : Controller
     {

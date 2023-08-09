@@ -1,4 +1,4 @@
-﻿namespace API_Consumer.Models.Repositories
+﻿namespace Client.Models.Repositories
 {
     public static class ShirtRepository
     {

@@ -1,4 +1,4 @@
-namespace API_Consumer.Models
+namespace Client.Models
 {
     public class ErrorViewModel
     {

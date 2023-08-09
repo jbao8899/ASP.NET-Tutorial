@@ -1,4 +1,4 @@
-﻿namespace API_Consumer.Data
+﻿namespace Client.Data
 {
     public interface IWebApiExecutor
     {

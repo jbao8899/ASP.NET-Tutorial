@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace API_Consumer.Data
+namespace Client.Data
 {
     public class ErrorResponse
     {

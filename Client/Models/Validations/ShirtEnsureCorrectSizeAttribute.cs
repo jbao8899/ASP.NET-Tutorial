@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace API_Consumer.Models.Validations
+namespace Client.Models.Validations
 {
     public class Shirt_EnsureCorrectSizeAttribute : ValidationAttribute
     {

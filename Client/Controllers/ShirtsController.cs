@@ -1,9 +1,9 @@
-﻿using API_Consumer.Data;
-using API_Consumer.Models;
-using API_Consumer.Models.Repositories;
+﻿using Client.Data;
+using Client.Models;
+using Client.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API_Consumer.Controllers
+namespace Client.Controllers
 {
     public class ShirtsController : Controller
     {

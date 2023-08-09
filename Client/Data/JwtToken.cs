@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace API_Consumer.Data
+namespace Client.Data
 {
     public class JwtToken
     {

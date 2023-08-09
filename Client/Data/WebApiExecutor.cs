@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace API_Consumer.Data
+namespace Client.Data
 {
     public class WebApiExecutor : IWebApiExecutor
     {

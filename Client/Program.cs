@@ -1,6 +1,6 @@
-using API_Consumer.Data;
+using Client.Data;
 
-namespace API_Consumer
+namespace Client
 {
     public class Program
     {
