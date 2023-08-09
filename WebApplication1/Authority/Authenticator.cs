@@ -57,6 +57,11 @@ namespace WebApplication1.Authority
                 return false;
             }
 
+            if (token.ToLower().StartsWith("bearer"))
+            {
+                token = token.Substring(6).Trim();
+            }
+
             byte[]? secretKey = Encoding.ASCII.GetBytes(strSecretKey);
 
             SecurityToken securityToken; 
