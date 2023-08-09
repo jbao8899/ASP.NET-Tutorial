@@ -32,10 +32,21 @@ namespace Server.Authority
             // Claims
             List<Claim> claims = new List<Claim>()
             {
-                new Claim("AppName", app?.ApplicationName??string.Empty),
-                new Claim("Read", (app?.Scopes??string.Empty).Contains("read")?"true":"false"),
-                new Claim("Write", (app?.Scopes??string.Empty).Contains("write")?"true":"false")
+                new Claim("AppName", app?.ApplicationName??string.Empty)
+                // ,
+                // new Claim("Read", (app?.Scopes??string.Empty).Contains("read")?"true":"false"),
+                // new Claim("Write", (app?.Scopes??string.Empty).Contains("write")?"true":"false")
             };
+
+            // determine which claims are needed
+            string[]? scopes = app?.Scopes?.Split(',');
+            if (scopes is not null && scopes.Length > 0)
+            {
+                foreach (string scope in scopes)
+                {
+                    claims.Add(new Claim(scope.Trim().ToLower(), "true"));
+                }
+            }
 
             JwtSecurityToken jwt = new JwtSecurityToken(
                 signingCredentials: new SigningCredentials(
@@ -50,11 +61,11 @@ namespace Server.Authority
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
-        public static bool VerifyToken(string token, string strSecretKey)
+        public static IEnumerable<Claim>? VerifyToken(string token, string strSecretKey)
         {
             if (string.IsNullOrWhiteSpace(token))
             {
-                return false;
+                return null;
             }
 
             if (token.ToLower().StartsWith("bearer"))
@@ -80,17 +91,26 @@ namespace Server.Authority
                     ClockSkew = TimeSpan.Zero
                 },
                 out securityToken);
+
+                if (securityToken is not null)
+                {
+                    JwtSecurityToken tokenObject = tokenHandler.ReadJwtToken(token)!;
+                    // verification succeeded, get empty list if we have no claims
+                    return tokenObject.Claims ?? (new List<Claim>()); 
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (SecurityTokenException ex)
             {
-                return false;
+                return null;
             }
             catch
             {
                 throw;
             }
-
-            return securityToken != null;
         }
     }
 }

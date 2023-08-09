@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Server.Attributes;
 using Server.Data;
 using Server.Filters.ActionFilters;
 using Server.Filters.AuthFilters;
@@ -22,6 +23,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("api/shirts")]
+        [RequiredClaim("read", "true")] // mine
         public IActionResult GetShirts()
         {
             //return Ok(ShirtRepository.GetShirts());
@@ -33,6 +35,7 @@ namespace WebApplication1.Controllers
         [Route("api/shirts/{id}")]
         // [Shirt_ValidateShirtIdFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
+        [RequiredClaim("read", "true")] // mine
         public IActionResult GetShirtById(int id)
         {
             // Internal error checking
@@ -61,6 +64,7 @@ namespace WebApplication1.Controllers
         [Route("api/shirts")]
         //[Shirt_ValidateCreateShirtFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateCreateShirtFilterAttribute))]
+        [RequiredClaim("write", "true")] // mine
         public IActionResult CreateShirt([FromBody] Shirt shirt)
         {
             // Not needed due to filter
@@ -121,6 +125,7 @@ namespace WebApplication1.Controllers
         [Shirt_ValidateUpdateShirtFilter]
         //[Shirt_HandleUpdateExceptionsFilter]  // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_HandleUpdateExceptionsFilterAttribute))]
+        [RequiredClaim("write", "true")] // mine
         public IActionResult UpdateShirt(int id, [FromBody]Shirt shirt)
         {
             //if (id != shirt.Id)
@@ -164,6 +169,7 @@ namespace WebApplication1.Controllers
         [Route("api/shirts/{id}")]
         // [Shirt_ValidateShirtIdFilter] // Can't use this after using dependency injection
         [TypeFilter(typeof(Shirt_ValidateShirtIdFilterAttribute))]
+        [RequiredClaim("delete", "true")] // mine
         public IActionResult DeleteShirt(int id)
         {
             // We delete by id, but retrieve the shirt to be deleted, so that
